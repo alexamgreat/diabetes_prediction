@@ -1,0 +1,8 @@
+[2026-01-23 17:04:12,673] data_ingestion.py:25 INFO - Data Ingestion started
+[2026-01-23 17:04:26,086] data_transformation.py:51 INFO - Data Transformation started
+[2026-01-23 17:04:27,433] data_transformation.py:57 INFO - Train shape: (560000, 26)
+[2026-01-23 17:04:27,433] data_transformation.py:58 INFO - Test shape: (140000, 26)
+[2026-01-23 17:04:27,544] data_transformation.py:24 INFO - Categorical columns: ['gender', 'ethnicity', 'education_level', 'income_level', 'smoking_status', 'employment_status']
+[2026-01-23 17:04:27,544] data_transformation.py:25 INFO - Numerical columns: ['id', 'age', 'alcohol_consumption_per_week', 'physical_activity_minutes_per_week', 'diet_score', 'sleep_hours_per_day', 'screen_time_hours_per_day', 'bmi', 'waist_to_hip_ratio', 'systolic_bp', 'diastolic_bp', 'heart_rate', 'cholesterol_total', 'hdl_cholesterol', 'ldl_cholesterol', 'triglycerides', 'family_history_diabetes', 'hypertension_history', 'cardiovascular_history']
+[2026-01-23 17:04:31,316] utils.py:20 INFO - Object saved successfully at artifacts\preprocessor.pkl
+[2026-01-23 17:04:31,316] data_transformation.py:78 INFO - Data Transformation completed successfully

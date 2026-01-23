@@ -1,0 +1,4 @@
+[2026-01-23 15:59:55,251] data_ingestion.py:24 INFO - Data Ingestion started
+[2026-01-23 15:59:56,809] data_ingestion.py:27 INFO - Dataset read successfully
+[2026-01-23 16:00:09,450] data_ingestion.py:38 INFO - Data ingestion completed successfully
+[2026-01-23 16:00:14,618] utils.py:20 INFO - Object saved successfully at artifacts\preprocessor.pkl

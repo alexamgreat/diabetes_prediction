@@ -1,23 +1,33 @@
 import logging
 import os
 from datetime import datetime
-from pathlib import Path
-
-
 
 LOG_FILE = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
-logs_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
-os.makedirs(os.path.dirname(logs_path), exist_ok=True)   
+LOG_DIR = os.path.join(os.getcwd(), "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 
+LOG_FILE_PATH = os.path.join(LOG_DIR, LOG_FILE)
 
+logger = logging.getLogger("app_logger")
+logger.setLevel(logging.DEBUG)
+logger.propagate = False  # VERY IMPORTANT
 
-LOG_FILE_PATH = os.path.join("logs", LOG_FILE)
-logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    format="[%(asctime)s] %(lineno)d %(levelname)s - %(message)s",
-    level=logging.INFO,
-    
-    )
+formatter = logging.Formatter(
+    "[%(asctime)s] %(filename)s:%(lineno)d %(levelname)s - %(message)s"
+)
+
+# File handler
+file_handler = logging.FileHandler(LOG_FILE_PATH)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+# Console handler (PRINTS ERRORS)
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.ERROR)
+console_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 
    
