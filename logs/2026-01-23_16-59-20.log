@@ -1,2 +1,0 @@
-[2026-01-23 16:59:20,456] data_ingestion.py:25 INFO - Data Ingestion started
-[2026-01-23 16:59:38,942] utils.py:20 INFO - Object saved successfully at artifacts/preprocessor.pkl
