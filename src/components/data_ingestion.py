@@ -4,10 +4,12 @@ import sys
 from dataclasses import dataclass
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import numpy as np
 
 from src.exception import CustomException
 from src.logger import logger
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainerConfig, ModelTrainer
 
 
 @dataclass
@@ -53,4 +55,12 @@ if __name__ == "__main__":
     train_data, test_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
+    X_train_arr, X_test_arr, y_train, y_test = (
     data_transformation.initiate_data_transformation(train_data, test_data)
+    
+)
+    #combine features and target for model trainer
+    train_array = np.c_[X_train_arr, y_train]
+    test_array = np.c_[X_test_arr, y_test]
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_array, test_array))

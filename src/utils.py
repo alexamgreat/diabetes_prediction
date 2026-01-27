@@ -22,3 +22,25 @@ def save_object(file_path: str, obj: object) -> None:
     except Exception as e:
         logger.exception("Error occurred while saving object")
         raise CustomException(e, sys)
+
+def evaluate_models(X_train, y_train, X_test, y_test, models: dict) -> dict:
+    """
+    Evaluates multiple machine learning models and returns their performance scores.
+    """
+    from sklearn.metrics import accuracy_score
+
+    model_report = {}
+
+    try:
+        for model_name, model in models.items():
+            model.fit(X_train, y_train)
+            y_pred = model.predict(X_test)
+            score = accuracy_score(y_test, y_pred)
+            model_report[model_name] = score
+            logger.info(f"{model_name} evaluated with accuracy: {score}")
+
+        return model_report
+
+    except Exception as e:
+        logger.exception("Error occurred while evaluating models")
+        raise CustomException(e, sys)
