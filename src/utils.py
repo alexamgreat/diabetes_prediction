@@ -23,14 +23,32 @@ def save_object(file_path: str, obj: object) -> None:
         logger.exception("Error occurred while saving object")
         raise CustomException(e, sys)
 
+
+def load_object(file_path: str) -> object:
+    """
+    Loads a Python object from a file using dill.
+    """
+    try:
+        with open(file_path, "rb") as file_obj:
+            return dill.load(file_obj)
+
+    except Exception as e:
+        logger.exception("Error occurred while loading object")
+        raise CustomException(e, sys)
+
+
 def evaluate_models(X_train, y_train, X_test, y_test, models: dict) -> dict:
-    """
-    Evaluates multiple machine learning models and returns their performance scores.
-    """
     from sklearn.metrics import accuracy_score
 
-    model_report = {}
+    # Ensure y is binary
+    y_train = y_train.astype(int)
+    y_test = y_test.astype(int)
 
+    # Ensure only binary classification
+    if len(set(y_train)) > 2:
+        raise Exception("Target variable is not binary. Check y_train values.")
+
+    model_report = {}
     try:
         for model_name, model in models.items():
             model.fit(X_train, y_train)

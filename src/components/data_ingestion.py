@@ -10,6 +10,7 @@ from src.exception import CustomException
 from src.logger import logger
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainerConfig, ModelTrainer
+from src.components.model_tuning import ModelTuning
 
 
 @dataclass
@@ -49,18 +50,25 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 
-if __name__ == "__main__":
-    obj = DataIngestion()
+from src.components.model_tuning import ModelTuning
 
+if __name__ == "__main__":
+
+    # 1) Ingestion
+    obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
 
+    # 2) Transformation
     data_transformation = DataTransformation()
-    X_train_arr, X_test_arr, y_train, y_test = (
-    data_transformation.initiate_data_transformation(train_data, test_data)
-    
-)
-    #combine features and target for model trainer
-    train_array = np.c_[X_train_arr, y_train]
-    test_array = np.c_[X_test_arr, y_test]
+    X_train_arr, X_test_arr, y_train, y_test = data_transformation.initiate_data_transformation(train_data, test_data)
+
+    # 3) Training (optional)
     model_trainer = ModelTrainer()
-    print(model_trainer.initiate_model_trainer(train_array, test_array))
+    model_trainer.initiate_model_trainer(np.c_[X_train_arr, y_train], np.c_[X_test_arr, y_test])
+
+    # 4) Tuning
+    tuner = ModelTuning()
+    print(tuner.tune_model(X_train_arr, y_train, X_test_arr, y_test))
+    
+    
+    
